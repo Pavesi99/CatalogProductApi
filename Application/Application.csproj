@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Worker\**" />
+    <EmbeddedResource Remove="Worker\**" />
+    <None Remove="Worker\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Havan.AspNetCore" Version="4.1.2" />
+    <PackageReference Include="Havan.Logistica.Core" Version="5.0.2" />
+    <PackageReference Include="Havan.Mapping.AutoMapper" Version="4.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Infra.Data\Infra.Data.csproj" />
+    <ProjectReference Include="..\Messaging\Messaging.csproj" />
+  </ItemGroup>
+
+</Project>
