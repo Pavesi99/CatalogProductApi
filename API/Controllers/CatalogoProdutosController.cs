@@ -1,23 +1,23 @@
 ﻿using Application.Interfaces;
-using Havan.Logistica.Core.Controller;
-using Havan.Logistica.Core.Notifications;
 using Infra.CrossCutting.Dto;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
+using System.Net;
 
 namespace API.Controllers
 {
     [Route("CatalogoProdutos")]
     [ApiController]
-    public class CatalogoProdutosController : MainController
+    public class CatalogoProdutosController : ControllerBase
     {
         private readonly ICatalogoProdutosAppService _appService;
+        private readonly ILogger<CatalogoProdutosController> _logger;
 
-        public CatalogoProdutosController(INotifier notifier, ICatalogoProdutosAppService appService) : base(notifier)
+        public CatalogoProdutosController(ILogger<CatalogoProdutosController> logger, ICatalogoProdutosAppService appService)
         {
             _appService = appService;
+            _logger = logger;
         }
 
         [HttpPost, Route("/Buscar")]
@@ -25,12 +25,12 @@ namespace API.Controllers
         {
             try
             {
-                return Response(_appService.Buscar(catalogoProdutoSearchDto));
+                return Ok(_appService.Buscar(catalogoProdutoSearchDto));
             }
             catch (Exception e)
             {
-                Notify(e.InnerException?.Message ?? e.Message);
-                return Response();
+                _logger.LogError(e.InnerException?.Message ?? e.Message);
+                return Problem(e.InnerException?.Message ?? e.Message, null, (int)HttpStatusCode.InternalServerError);
             }
         }
 

@@ -1,12 +1,12 @@
 ﻿using Domain.Interfaces.Uow;
-using Havan.Logistica.Core.Notifications;
 using Infra.Data.Context;
+using Microsoft.Extensions.Logging;
 
 namespace Infra.Data.Uow
 {
     public class CatalogoProdutoUnitOfWork : UnitOfWorkBase<CatalogoProdutoContext>, ICatalogoProdutoUnitOfWork
     {
-        public CatalogoProdutoUnitOfWork(INotifier notifier, CatalogoProdutoContext context) : base(notifier, context)
+        public CatalogoProdutoUnitOfWork(ILogger<CatalogoProdutoContext> logger, CatalogoProdutoContext context) : base(logger, context)
         {
         }
     }

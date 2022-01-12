@@ -1,20 +1,20 @@
 ﻿using Domain.Interfaces.Uow;
-using Havan.Logistica.Core.Notifications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace Infra.Data.Uow
 {
     public class UnitOfWorkBase<TContext> : IUnitOfWorkBase where TContext : DbContext
     {
-        private readonly INotifier _notifier;
+        private readonly ILogger _logger;
         private readonly TContext _context;
         private IDbContextTransaction _transaction;
 
-        public UnitOfWorkBase(INotifier notifier, TContext context)
+        public UnitOfWorkBase(ILogger logger, TContext context)
         {
-            _notifier = notifier;
+            _logger = logger;
             _context = context;
         }
 
@@ -38,7 +38,7 @@ namespace Infra.Data.Uow
             }
             catch (Exception e)
             {
-                _notifier.Notify(e.InnerException?.Message ?? e.Message);
+                _logger.LogError(e.InnerException?.Message ?? e.Message);
                 return false;
             }
         }
@@ -54,7 +54,7 @@ namespace Infra.Data.Uow
             }
             catch (Exception e)
             {
-                _notifier.Notify(e.InnerException?.Message ?? e.Message);
+                _logger.LogError(e.InnerException?.Message ?? e.Message);
                 return false;
             }
         }
@@ -69,7 +69,7 @@ namespace Infra.Data.Uow
             }
             catch (Exception e)
             {
-                _notifier.Notify(e.InnerException?.Message ?? e.Message);
+                _logger.LogError(e.InnerException?.Message ?? e.Message);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Infra.Data.Uow
             }
             catch (Exception e)
             {
-                _notifier.Notify(e.InnerException?.Message ?? e.Message);
+                _logger.LogError(e.InnerException?.Message ?? e.Message);
                 return false;
             }
         }

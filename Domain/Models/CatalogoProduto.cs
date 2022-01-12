@@ -1,13 +1,6 @@
-﻿using Havan.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Models
+﻿namespace Domain.Models
 {
-    public class CatalogoProduto : Entity<int>
+    public class CatalogoProduto : Entidade<int>
     {
         public void AtualizarDados(int codigo, string descricao, string nomeFornecedor,  Categoria categoria, int precoVenda)
         {
