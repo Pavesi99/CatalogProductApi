@@ -18,11 +18,11 @@ namespace API.MessageHandler
         private readonly IMapper _mapper;
         private readonly IConnectionFactory _factory;
 
-        public CatalogoProdutosMessageHandler( Provider<ICatalogoProdutosAppService> catalogoProdutosAppService, IMapper mapper, IConnectionFactory factory)
+        public CatalogoProdutosMessageHandler( ICatalogoProdutosAppService catalogoProdutosAppService, IMapper mapper, IConnectionFactory factory)
         {
             _factory = factory;
             _mapper = mapper;
-            _catalogoProdutosAppService = catalogoProdutosAppService.Action<CatalogoProduto>(s => s.RegistrarCatalogo);
+            _catalogoProdutosAppService = catalogoProdutosAppService.IntegrarCatalogo;
         }
 
         public void IniciarReceiver()
