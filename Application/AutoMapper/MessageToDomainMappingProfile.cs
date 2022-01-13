@@ -10,12 +10,6 @@ namespace Application.AutoMapper
         public MessageToDomainMappingProfile()
         {
             CreateMap<CatalogoProdutosMessage, CatalogoProduto>();
-
-
-            //CreateMap<QuantidadeItemProduto, QuantidadeItemProdutoDashDto>();
-
-            //Group
-            //CreateMap<QuantidadeItemPacGroup, QuantidadeItemPacDashDto>();
         }
     }
 }
