@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Domain.Models;
-using Infra.CrossCutting.Dto;
 using Messaging;
 
 namespace Application.AutoMapper

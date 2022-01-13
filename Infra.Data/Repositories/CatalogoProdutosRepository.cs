@@ -1,10 +1,7 @@
 ﻿using Domain.Interfaces.NomeDaBase;
 using Infra.CrossCutting.Dto;
-using Infra.Data.Config;
-using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using Infra.Data.Context;
-using System.Text;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
