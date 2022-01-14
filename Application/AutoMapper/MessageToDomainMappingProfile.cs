@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Domain.Message;
 using Domain.Models;
-using Messaging;
 
 namespace Application.AutoMapper
 {

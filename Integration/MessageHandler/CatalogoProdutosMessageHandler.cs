@@ -1,8 +1,8 @@
 ﻿using Application.Interfaces;
 using AutoMapper;
 using Domain.Interfaces.Integration;
+using Domain.Message;
 using Domain.Models;
-using Messaging;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;

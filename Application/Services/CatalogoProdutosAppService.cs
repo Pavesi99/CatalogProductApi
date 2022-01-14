@@ -11,13 +11,11 @@ namespace Application.Services
     public class CatalogoProdutosAppService : ICatalogoProdutosAppService
     {
         private readonly ICatologoProdutosRepository _repository;
-        private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
 
-        public CatalogoProdutosAppService(ICatologoProdutosRepository repository, IMapper mapper, IUnitOfWork uow)
+        public CatalogoProdutosAppService(ICatologoProdutosRepository repository, IUnitOfWork uow)
         {
             _repository = repository;
-            _mapper = mapper;
             _uow = uow;
         }
 
