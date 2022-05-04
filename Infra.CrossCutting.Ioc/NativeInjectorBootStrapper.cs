@@ -26,7 +26,6 @@ namespace Infra.CrossCutting.Ioc
             services.AddScoped<ICatalogoProdutosAppService, CatalogoProdutosAppService>();
 
             //Repository
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<ICatologoProdutosRepository, CatalogoProdutosRepository>();
 
             //Uow
