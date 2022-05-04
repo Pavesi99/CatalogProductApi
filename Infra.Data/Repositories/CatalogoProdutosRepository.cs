@@ -1,10 +1,7 @@
 ﻿using Domain.Interfaces.NomeDaBase;
 using Infra.CrossCutting.Dto;
-using Infra.Data.Config;
-using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using Infra.Data.Context;
-using System.Text;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -48,18 +45,16 @@ namespace Infra.Data.Repositories.ItlSys
             return query.Skip((catalogoProdutoSearchDto.Pagina - 1) * catalogoProdutoSearchDto.TamanhoPagina).Take(catalogoProdutoSearchDto.TamanhoPagina).ToList();
         }
 
-        public CatalogoProduto Cadastrar(CatalogoProduto produto)
+        public CatalogoProduto Cadastrar(CatalogoProduto catologoProduto)
         {
-            var catologoProduto = this.Buscar(produto.Codigo);
-            if (catologoProduto != null)
-            {
-                catologoProduto.AtualizarDados(produto.Codigo, produto.Descricao, produto.NomeFornecedor, produto.Categoria, produto.PrecoVenda);
-                _dbSet.Update(catologoProduto);
-                return catologoProduto;
-            }
-            _dbSet.Add(produto);
+            _dbSet.Add(catologoProduto);
+            return catologoProduto;
+        }
 
-            return produto;
+        public CatalogoProduto Atualizar(CatalogoProduto catologoProduto)
+        {
+            _dbSet.Update(catologoProduto);
+            return catologoProduto;
         }
 
         public CatalogoProduto Deletar(int produtoId)

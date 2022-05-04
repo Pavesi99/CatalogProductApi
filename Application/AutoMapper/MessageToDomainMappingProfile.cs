@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
+using Domain.Message;
 using Domain.Models;
-using Infra.CrossCutting.Dto;
-using Messaging;
 
 namespace Application.AutoMapper
 {
@@ -10,12 +9,6 @@ namespace Application.AutoMapper
         public MessageToDomainMappingProfile()
         {
             CreateMap<CatalogoProdutosMessage, CatalogoProduto>();
-
-
-            //CreateMap<QuantidadeItemProduto, QuantidadeItemProdutoDashDto>();
-
-            //Group
-            //CreateMap<QuantidadeItemPacGroup, QuantidadeItemPacDashDto>();
         }
     }
 }

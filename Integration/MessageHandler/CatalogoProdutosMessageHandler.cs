@@ -1,30 +1,28 @@
 ﻿using Application.Interfaces;
 using AutoMapper;
+using Domain.Interfaces.Integration;
+using Domain.Message;
 using Domain.Models;
-using Havan.Core;
-using Havan.Messaging.RabbitMQ;
-using Infra.CrossCutting.Dto;
-using Infra.Data.Repositories.ItlSys;
-using Messaging;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace API.MessageHandler
 {
-    public class CatalogoProdutosMessageHandler 
+    public class CatalogoProdutosMessageHandler : ICatalogoProdutosMessageHandler
     {
         private readonly Action<CatalogoProduto> _catalogoProdutosAppService;
         private readonly IMapper _mapper;
-        public CatalogoProdutosMessageHandler( IProvider<ICatalogoProdutosAppService> CatalogoProdutosAppService, IMapper mapper)
+        private readonly IConnectionFactory _factory;
+
+        public CatalogoProdutosMessageHandler( ICatalogoProdutosAppService catalogoProdutosAppService, IMapper mapper, IConnectionFactory factory)
         {
+            _factory = factory;
             _mapper = mapper;
-            _catalogoProdutosAppService = CatalogoProdutosAppService.Action<CatalogoProduto>(s => s.RegistrarCatalogo);
+            _catalogoProdutosAppService = catalogoProdutosAppService.IntegrarCatalogo;
         }
 
         public void IniciarReceiver()
@@ -34,8 +32,7 @@ namespace API.MessageHandler
 
         public void Listen()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
+            using (var connection = _factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queue: "catalogoProduto", durable: false, exclusive: false, autoDelete: false, arguments: null);

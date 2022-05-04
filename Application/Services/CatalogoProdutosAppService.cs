@@ -11,19 +11,26 @@ namespace Application.Services
     public class CatalogoProdutosAppService : ICatalogoProdutosAppService
     {
         private readonly ICatologoProdutosRepository _repository;
-        private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
 
-        public CatalogoProdutosAppService(ICatologoProdutosRepository repository, IMapper mapper, IUnitOfWork uow)
+        public CatalogoProdutosAppService(ICatologoProdutosRepository repository, IUnitOfWork uow)
         {
             _repository = repository;
-            _mapper = mapper;
             _uow = uow;
         }
 
-        public void RegistrarCatalogo(CatalogoProduto produto)
+        public void IntegrarCatalogo(CatalogoProduto produto)
         {
-             _repository.Cadastrar(produto);
+            var produtoDb = _repository.Buscar(produto.Codigo);
+            if (produtoDb != null)
+            {
+                produtoDb.AtualizarDados(produto.Codigo, produto.Descricao, produto.NomeFornecedor, produto.Categoria, produto.PrecoVenda);
+                _repository.Atualizar(produtoDb);
+            }
+            else
+            {
+                _repository.Cadastrar(produto);
+            }
             _uow.CatalogoProdutoUnitOfWork.Commit();
         }
 

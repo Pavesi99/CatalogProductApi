@@ -1,14 +1,16 @@
-﻿using Application.Interfaces;
+﻿using API.MessageHandler;
+using Application.Interfaces;
 using Application.Services;
+using Domain.Interfaces.Integration;
 using Domain.Interfaces.NomeDaBase;
 using Domain.Interfaces.Uow;
-using Havan.Persistence.ConnectionStrings;
 using Infra.Data.Context;
 using Infra.Data.Repositories.ItlSys;
 using Infra.Data.Uow;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
 
 namespace Infra.CrossCutting.Ioc
 {
@@ -16,11 +18,14 @@ namespace Infra.CrossCutting.Ioc
     {
         public static void RegisterServices(IConfiguration configuration, IServiceCollection services)
         {
+            //MensageHandler
+            services.AddScoped<ICatalogoProdutosMessageHandler, CatalogoProdutosMessageHandler>();
+            services.AddScoped<IConnectionFactory, ConnectionFactory>();
+
             //AppService
             services.AddScoped<ICatalogoProdutosAppService, CatalogoProdutosAppService>();
 
             //Repository
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<ICatologoProdutosRepository, CatalogoProdutosRepository>();
 
             //Uow
@@ -30,8 +35,7 @@ namespace Infra.CrossCutting.Ioc
             //Contexto
             services.AddDbContextPool<CatalogoProdutoContext>((sp, ob) =>
             {
-                var cs = sp.GetRequiredService<IConnectionStringProvider>().GetConnectionString("CatalogoProdutoAPI");
-                ob.UseSqlServer(cs);
+                ob.UseSqlServer(configuration.GetConnectionString("CatalogoProdutoAPI"));
             });
         }
     }
