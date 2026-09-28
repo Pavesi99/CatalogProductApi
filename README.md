@@ -1,21 +1,20 @@
 ## 1 - Services
-- Camada de exteriorização da aplicação
-- Arquivos de configuração do projeto e Controlers
+- The application’s external interface layer
+- Project configuration files and controllers
  
-
 ## 2 - Application
-- Atende as chamadas da camada Service
-- Encontrasse os arquivos AppService
+- Handles calls from the Services layer
+- Contains the AppService files
 
 ## 3 - Domain
-- Classes entidade, enums e interfaces do repositorio
+- Entity classes, enums, and repository interfaces
 
 ## 4.1 - Infra.Data
-- Configurações de comunicação com o banco e classes de repositio
-- Lida com a comunicação com o banco de dados
+- Database connection configuration and repository classes
+- Handles communication with the database
 
 ## 4.2 - Infra.CrossCutting.Dto
-- Classes dtos
+- DTO classes
 
 ## 4.2 - Infra.CrossCutting.Ioc
-- Classe para injeção de dependencia, utilizada na classe Startup.cs 
+- Dependency injection configuration, used in Startup.cs 
